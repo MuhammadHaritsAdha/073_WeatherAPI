@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation MapTiler</title>
+    
+</head>
+<body>
+
+    <div class="card">
+        <div class="identity">
+            <h3>Nama : Muhammad Harits Adha</h3>
+            <h3>NIM  : 20240140073</h3>
+        </div>
+
+        <div class="search-box">
+            <label for="inputLokasi">Cari Lokasi:</label>
+            <div class="input-group">
+                <input type="text" id="inputLokasi" value="Jakarta" placeholder="Masukkan nama kota...">
+                <button onclick="cariLokasi()">Cari</button>
+            </div>
+        </div>
+
+        <div class="result-box">
+            <p>Negara : <span id="negara">-</span></p>
+            <p>Provinsi : <span id="provinsi">-</span></p>
+            <p>Kecamatan : <span id="kecamatan">-</span></p>
+            <p>Longitude : <span id="longitude">-</span></p>
+            <p>Latitude : <span id="latitude">-</span></p>
+        </div>
+    </div>
+
+    <script>
+        function cariLokasi() {
+            const lokasi = document.getElementById("inputLokasi").value;
+
+            fetch(`/api/lokasi?kota=${lokasi}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("negara").innerText = data.negara;
+                    document.getElementById("provinsi").innerText = data.provinsi;
+                    document.getElementById("kecamatan").innerText = data.kecamatan;
+                    document.getElementById("longitude").innerText = data.longitude;
+                    document.getElementById("latitude").innerText = data.latitude;
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        cariLokasi();
+    </script>
+</body>
+</html>
